@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DTO\CreateForumDTO;
-use App\DTO\UpdateForumDTO;
+use App\DTO\Forums\CreateForumDTO;
+use App\DTO\Forums\UpdateForumDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateForum;
 use App\Models\Forum;

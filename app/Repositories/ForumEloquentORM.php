@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Repositories\ForumRepositoryInterface;
-use App\DTO\CreateForumDTO;
-use App\DTO\UpdateForumDTO;
+use App\DTO\Forums\CreateForumDTO;
+use App\DTO\Forums\UpdateForumDTO;
 use stdClass;
 use App\Models\Forum;
 use App\Repositories\PaginationInterface;

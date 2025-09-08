@@ -1,24 +1,24 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Forums;
 
+use App\Enums\ForumStatus;
 use App\Http\Requests\StoreUpdateForum;
+use App\Models\Forum;
 
-class UpdateForumDTO{
+class CreateForumDTO{
 
     public function __construct(
-        public string $id,
         public string $subject,
-        public string $status,
+        public ForumStatus $status,
         public string $body,
     ){}
 
 
     public static function makeFromRequest(StoreUpdateForum $request): self{
         return new self(
-            $request->id,
             $request->subject,
-            'a', //status default como 'a' para ativo
+            ForumStatus::A,
             $request->body,
         );
     }

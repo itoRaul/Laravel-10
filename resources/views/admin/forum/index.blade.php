@@ -13,7 +13,7 @@
         @foreach ($forums->items() as $forum)
         <tr>
             <td>{{ $forum->subject }}</td>
-            <td>{{ $forum->status }}</td>
+            <td>{{ getStatusForum($forum->status) }}</td>
             <td>{{ $forum->body }}</td>
             <td>
                 <a href="{{ route('forum.show', $forum->id) }}">Ver</a>
@@ -24,4 +24,4 @@
     </tbody>
 </table>
 
-<x-pagination : paginator="$forums" :appends="$filters"/>
+<x-pagination :paginator="$forums" :appends="$filters"/>
