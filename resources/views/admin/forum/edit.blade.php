@@ -1,17 +1,20 @@
-<h1>Editar forum {{ $forum->id }}</h1>
 
-@if ($errors->any())
-    @foreach ($errors->all() as $error)
-        {{ $error }}
-    @endforeach
-@endif
+@extends('admin.layouts.app')
+
+@section('title', 'Editar Dúvida')
+
+@section('header')
+    <h1 class="text-lg text-black-500">Editar Dúvida</h1>
+@endsection
+
+@section('content')
+
 
 <form action="{{ route('forum.update', $forum->id) }}" method="POST">
-    @csrf()
     @method('PUT')
-    {{-- <input type="hidden" value="PUT" name="_method"> --}}
-    <input type="text" placeholder="Assunto" name="subject" value="{{ $forum->subject}}">
-    <textarea name="body" cols="30" rows="5" placeholder="Descrição">{{ $forum->body }}</textarea>
-    <button type="submit">Enviar</button>
+    @include('admin.forum.partials.form', [
+        'forum' => $forum
+    ])
 </form>
 
+@endsection

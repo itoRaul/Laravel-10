@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUpdateForum extends FormRequest
 {
@@ -24,11 +25,21 @@ class StoreUpdateForum extends FormRequest
 
         $rules = [
             'subject' => 'required|min:3|max:255|unique:forums',
-            'body' => ['required', 'min:3', 'max:10000']
+            'body' => [
+                'required', 
+                'min:3', 
+                'max:10000'
+            ],
         ];
 
-        if($this->method() === 'PUT'){
-            $rules['subject'] = ['required', 'min:3', 'max:255', "unique:forums,subject,{$this->id},id",];
+        if($this->method() === 'PUT' || $this->method() === 'PATCH'){
+            $rules['subject'] = [
+                'required',
+                'min:3',
+                'max:255',
+            ];
+            
+            Rule::unique('forums')->ignore($this->forum ?? $this->id);
         }
 
         return $rules;

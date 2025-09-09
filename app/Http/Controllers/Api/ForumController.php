@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Adapters\ApiAdapter;
 use App\DTO\Forums\CreateForumDTO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use GuzzleHttp\Psr7\Response;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Response as HttpResponse;
 use App\DTO\Forums\UpdateForumDTO;
+use Spatie\FlareClient\Api;
 
 class ForumController extends Controller
 {
@@ -24,9 +26,13 @@ class ForumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(Request $request){
+        $forums = $this->service->paginate(
+            page: $request->get('page', 1),
+            totalPerPage: $request->get('per_page', 15),
+            filter: $request->filter
+        );
+        return ApiAdapter::toJson($forums);
     }
 
     /**
@@ -58,7 +64,7 @@ class ForumController extends Controller
     public function update(StoreUpdateForum $request, string $id)
     {
         $forum = $this->service->update(
-            UpdateForumDTO::makeFromRequest($request)
+            UpdateForumDTO::makeFromRequest($request, $id)
         );
 
         if(!$forum){

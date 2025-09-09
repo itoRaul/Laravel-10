@@ -20,7 +20,7 @@ class ForumController extends Controller{
 
         $forums = $this->service->paginate(
             page: $request->get('page', 1),
-            totalPerPage: $request->get('per_page', 15),
+            totalPerPage: $request->get('per_page', 10),
             filter: $request->filter,
         );
 
@@ -49,7 +49,7 @@ class ForumController extends Controller{
 
         $this->service->create(CreateForumDTO::makeFromRequest($request));
 
-        return redirect()->route('forum.index');
+        return redirect()->route('forum.index')->with('message', 'Criado com sucesso!');
     }
 
     public function edit(string $id){
@@ -69,14 +69,14 @@ class ForumController extends Controller{
             return back();
         }
 
-        return redirect()->route('forum.index');
+        return redirect()->route('forum.index')->with('message', 'Atualizado com sucesso!');
     }
 
     public function destroy(string $id){
 
         $this->service->delete($id);
-        return redirect()->route('forum.index');
-        
+        return redirect()->route('forum.index')->with('message', 'Deletado com sucesso!');
+
     }
 
 }
